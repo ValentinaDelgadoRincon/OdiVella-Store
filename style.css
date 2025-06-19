@@ -1,0 +1,185 @@
+:root {
+    --purple: #a613eb;
+}
+
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: .2s;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: hidden;
+}
+
+header {
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #BDD7FF;
+    padding: 3rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    z-index: 1000;
+    box-shadow: 0 2rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    position: fixed;
+    top: 2rem;
+    left: 9%;
+    width: auto;  
+    height: auto;
+}
+
+
+header .navbar a {
+    font-size: 3rem;
+    padding: 0 1.5rem;
+    color: #795784;
+
+   
+}
+
+header .navbar a:hover {
+    color:var(--purple)
+} 
+
+header .icons a {
+    font-size: 2.5rem;
+    color: #795784;
+    margin-left: 1.5rem;
+}
+
+header .icons a:hover {
+    color:var(--purple);
+} 
+
+header #toggler {
+    display: none;
+}
+
+header .fa-bars {
+    font-size: 3rem;
+    color: #a613eb;
+    border-radius: .5rem;
+    padding: .5rem 1.5rem;
+    cursor: pointer;
+    border: .1rem solid rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+@media (max-width: 991px){
+    html{
+        font-size: 50%;
+    }
+    header .logo {
+        left: 5%;
+    }
+
+    header{
+        padding: 1rem;
+    }
+    .home {
+        background-position: left;
+    }
+}
+
+
+@media (max-width: 768px){
+    header .fa-bars {
+        display: block;
+    }
+
+    header .navbar{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #BDD7FF;
+        border-top: .1rem solid rgba(0, 0, 0, 0.1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    header #toggler:checked ~ .navbar {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    header .navbar a {
+        margin: 1.5rem;
+        padding: 1.5rem;
+        background: #e5ccf0b2;
+        border: .1rem solid rgba(0, 0, 0, 0.1);
+        display: block;
+    }
+
+    .home .content h3 {
+        font-size: 5rem;
+    }
+
+    .home .content h3 {
+        font-size: 5rem;
+    }
+}
+
+@media (max-width: 450px) {
+    html{
+        font-size: 50%;
+    }
+}
+    
+
+section{
+    padding: 2rem 9%;
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    background: url(./multimedia/fondo.png)no-repeat;
+    background-size: cover;
+    background-position: center;
+} 
+
+
+.home .content {
+    max-width: 90rem;
+}
+
+.home .content h3 {
+    font-size: 10rem;
+    color: #333;
+}
+
+.home .content p {
+    font-size: 2rem;
+    color: #000000;
+    padding: 1rem 0;
+    line-height: 3;
+}
+
+
+.btn{
+    display: inline-block;
+    margin-top: 1rem;
+    border-radius: 5rem;
+    background: #B5C3FE;
+    color: #000000;
+    padding: .9rem 15rem;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.btn:hover{
+    background: var(--purple);
+}
