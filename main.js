@@ -1,4 +1,4 @@
-  async function cargarProductos() {
+ async function cargarProductos() {
     try {
       const respuesta = await fetch('https://fakestoreapi.com/products');
       const productos = await respuesta.json();
@@ -29,7 +29,11 @@
       console.error('Error al cargar productos:', error);
     }
   }
-
-
   document.addEventListener('DOMContentLoaded', cargarProductos);
+
+
+
+
+
+
 

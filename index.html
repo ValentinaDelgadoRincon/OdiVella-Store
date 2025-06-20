@@ -6,6 +6,7 @@
     <title>Odivella Store</title>
     <link rel="stylesheet" href="./style.css">
     <script type="module" defer src="./main.js"></script>
+    <script type="module" defer src="./filter.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -38,7 +39,16 @@
 
  <section class="products" id="products">
   <h1 class="heading">Products</h1>
-  
+  <div class="filter-icon">
+    
+    <img src="./multimedia/filtros.png" alt="Filtros" id="filter-icon">
+
+
+<div class="filter-options" id="filter-options">
+    <button class="category-btn" id="category-btn">Categoría</button>
+    <button class="price-btn" id="price-btn">Precio</button>
+</div>
+
 
 <div id="poda">
   <div class="glow"></div>
@@ -99,10 +109,11 @@
     </div>
   </div>
 </div>
-
+  </div>
     
   <div class="box-container" id="product-container">
   </div>
+
 </section>
 
 
