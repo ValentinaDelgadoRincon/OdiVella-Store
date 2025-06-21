@@ -658,3 +658,19 @@ section{
 .category .category-products .technology {
   background: url(./multimedia/technology.png);
 }
+
+#price-input {
+  margin-top: 1vh;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  background: #f0ababb0;
+  font-size: 1.5rem;
+  width: 90%;
+  max-width: 200px;
+}
+
+#price-input {
+  display: none;
+}
+
