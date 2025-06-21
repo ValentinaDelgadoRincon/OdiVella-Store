@@ -592,7 +592,69 @@ section{
   background: #df5959b0;
   border-radius: 25px;
   height: 2%;
-  width: 100%;
+  width: 10vw;
   font-size: 1.5rem;
   align-items: center;
+  text-decoration: none;
+  color: #000;
 } 
+
+.category {
+  width: 100vw;
+  height: 100vh;
+  background-color: #bdd7ff6e; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.category-products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+
+.category-products  div {
+  padding: 30px;
+  height: 10vw;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.705);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-products  div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgb(0, 0, 0);
+}
+
+
+.category-products h2 {
+  font-size: 35px;
+  color: #ffffff;
+  text-align: center;
+  padding: 7%;
+  width: 100%;
+}
+
+
+.category .category-products .man {
+  background: url(./multimedia/men.png);
+  
+} 
+
+.category .category-products .women {
+  background: url(./multimedia/women.png);
+} 
+
+.category .category-products .jewelry {
+  background: url(./multimedia/jewerly.png);
+} 
+
+.category .category-products .technology {
+  background: url(./multimedia/technology.png);
+}
