@@ -23,7 +23,7 @@ function mostrarProductos(productos) {
       <div class="image">
         <img src="${producto.image}" alt="${producto.title}">
         <div class="icons">
-          <a href="login.html" class="fas fa-shopping-cart cart-btn">Add</a>
+          <a class="fas fa-shopping-cart cart-btn">Add</a>
         </div>
       </div>
       <div class="content">
@@ -99,3 +99,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+

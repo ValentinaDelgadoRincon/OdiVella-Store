@@ -1,125 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odivella Store</title>
-    <link rel="stylesheet" href="./style.css">
-    <script type="module" defer src="./main.js"></script>
-    <script type="module" defer src="./filter.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Odivella Store</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" defer src="./main.js"></script>
+  <script type="module" defer src="./filter.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+
 <body>
-        <header>
-            <input type="checkbox" name="" id="toggler">
-            <label for="toggler" class="fas fa-bars"></label>
+  <header>
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler" class="fas fa-bars"></label>
 
-            <a href="#" class="logo"> 
-                <img src="./multimedia/logo.png" alt="Logo"> 
-            </a>
+    <a href="#" class="logo">
+      <img src="./multimedia/logo.png" alt="Logo">
+    </a>
 
-            <nav class="navbar">
-                <a href="#home" class="fas fa-home">Home</a>
-                <a href="#products" class="fas fa-shopping-basket">Products</a>
-            </nav>
+    <nav class="navbar">
+      <a href="#home" class="fas fa-home">Home</a>
+      <a href="#products" class="fas fa-shopping-basket">Products</a>
+    </nav>
 
-            <div class="icons">
-                <a href="#" class="fas fa-shopping-cart"></a>
-            </div>
-        </header>
+    <div>
+      <img id="carrito" class="carrito" src="./multimedia/carrito-de-compras.png" alt="">
+      <div id="numero">0</div>
 
-        <section class="home" id="home">
-            <div class="content">
-                <h3>Everything you're looking for is here...</h3>
-                <p>In the best online store you can find.</p>
-            
-        <a href="#products" class="btn" type="button">Here !</a>
+    </div>
+  </header>
+
+  <main>
+    <div id="contenedor" class="contenedor"> </div>
+  </main>
+
+
+  <div id="contenedorCompra" class="none">
+    <div class="informacionCompra" id="informacionCompra">
+      <p class="x" id="x">x</p>
+    </div>
+
+    <div class="productosCompra" id="productosCompra"></div>
+    <div class="total" id="total"></div>
+    <button onclick="finalizarCompra()">Finalizar Compra</button>
+  
+  </div>
+
+  <section class="home" id="home">
+    <div class="content">
+      <h3>Everything you're looking for is here...</h3>
+      <p>In the best online store you can find.</p>
+      <a href="#products" class="btn" type="button">Here !</a>
     </div>
   </section>
 
- <section class="products" id="products">
-  <h1 class="heading">Products</h1>
-  <div class="filter-icon">
-    
-    <img src="./multimedia/filtros.png" alt="Filtros" id="filter-icon">
+  <section class="products" id="products">
+    <h1 class="heading">Products</h1>
+    <div class="filter-icon">
+      <img src="./multimedia/filtros.png" alt="Filtros" id="filter-icon">
 
+      <div class="filter-options" id="filter-options">
+        <a href="./category.html" class="category-btn" type="button">Category</a>
+        <button class="price-btn" id="price-btn">Price</button>
+        <input type="number" id="price-input" placeholder="Ingrese el precio" />
+      </div>
 
-<div class="filter-options" id="filter-options">
-    <a href="./category.html"   class="category-btn" type="button">Category</a>
-    <button class="price-btn" id="price-btn">Price</button>
-    <input type="number" id="price-input" placeholder="Ingrese el precio" />
+      <div id="poda">
+        <div class="glow"></div>
+        <div class="darkBorderBg"></div>
+        <div class="darkBorderBg"></div>
+        <div class="darkBorderBg"></div>
 
-    
-    
-</div>
+        <div class="white"></div>
 
+        <div class="border"></div>
 
-<div id="poda">
-  <div class="glow"></div>
-  <div class="darkBorderBg"></div>
-  <div class="darkBorderBg"></div>
-  <div class="darkBorderBg"></div>
+        <div id="main">
+          <input class="input" name="text" type="text" placeholder="Search..." />
+          <div id="pink-mask"></div>
 
-  <div class="white"></div>
-
-  <div class="border"></div>
-
-  <div id="main">
-    <input class="input" name="text" type="text" placeholder="Search..." />
-    <div id="pink-mask"></div>
-    
-    <div id="filter-icon">
-      
-        <path
-          stroke-linejoin="round"
-          stroke-linecap="round"
-          stroke-miterlimit="10"
-          stroke-width="1"
-          stroke="#d6d6e6"
-        ></path>
-      
+          <div id="filter-icon">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"
+              stroke="#d6d6e6"></path>
+          </div>
+          <div id="search-icon">
+            <svg class="feather feather-search" fill="none" height="24" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="8" stroke="url(#search)"></circle>
+              <line x1="22" x2="16.65" y1="22" y2="16.65" stroke="url(#searchl)"></line>
+              <defs>
+                <linearGradient id="search" gradientTransform="rotate(50)">
+                  <stop offset="0%" stop-color="#f8e7f8"></stop>
+                  <stop offset="50%" stop-color="#b6a9b7"></stop>
+                </linearGradient>
+                <linearGradient id="searchl">
+                  <stop offset="0%" stop-color="#b6a9b7"></stop>
+                  <stop offset="50%" stop-color="#837484"></stop>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="search-icon">
-      <svg
-        class="feather feather-search"
-        fill="none"
-        height="24"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="11" cy="11" r="8" stroke="url(#search)"></circle>
-        <line
-          x1="22"
-          x2="16.65"
-          y1="22"
-          y2="16.65"
-          stroke="url(#searchl)"
-        ></line>
-        <defs>
-          <linearGradient id="search" gradientTransform="rotate(50)">
-            <stop offset="0%" stop-color="#f8e7f8"></stop>
-            <stop offset="50%" stop-color="#b6a9b7"></stop>
-          </linearGradient>
-          <linearGradient id="searchl">
-            <stop offset="0%" stop-color="#b6a9b7"></stop>
-            <stop offset="50%" stop-color="#837484"></stop>
-          </linearGradient>
-        </defs>
-      </svg>
+
+    <div class="box-container" id="product-container">
     </div>
-  </div>
-</div>
-  </div>
-    
-  <div class="box-container" id="product-container">
-  </div>
-
-</section>
-
+  </section>
 
 </body>
+
 </html>
