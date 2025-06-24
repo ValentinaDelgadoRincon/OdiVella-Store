@@ -10,42 +10,12 @@ async function cargarProductos() {
 
     
     productosGlobales = productos;
-    mostrarProductos1(productosGlobales);
+    mostrarProductos(productosGlobales);
   } catch (error) {
     console.error('Error al cargar productos:', error);
   }
 }
 
-function mostrarProductos1(productos) {
-  const contenedor = document.getElementById('product-container');
-  contenedor.innerHTML = '';
-
-  productos.forEach(producto => {
-    const box = document.createElement('div');
-    box.classList.add('box');
-
-    box.innerHTML = `
-      <span class="discount">Venta</span>
-      <div class="image">
-        <img src="${producto.image}" alt="${producto.title}">
-        <div class="icons">
-          <a href="#" class="cart-btn" data-id="${producto.id}">
-            <i class="fas fa-shopping-cart"></i> Add
-          </a>
-        </div>
-      </div>
-      <div class="content">
-        <h3>${producto.title}</h3>
-        <div class="price">$${producto.price}</div>
-      </div>
-    `;
-
-    contenedor.appendChild(box);
-  });
-
- 
-  asignarEventosAdd();
-}
 
 
 function agregarAlCarrito(idProducto) {
@@ -225,12 +195,12 @@ function filterProducts(category) {
   const select = todosProductos.filter(product => 
     product.category === category
   );
-  mostrarProductos1(select);
+  mostrarProductos(select);
 }
 
 function filtrarPorPrecio(precio) {
   const filtrados = todosProductos.filter(producto => producto.price <= precio);
-  mostrarProductos1(filtrados);
+  mostrarProductos(filtrados);
 }
 
 function filtrarProductos(texto) {
