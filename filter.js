@@ -101,6 +101,69 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-if (document.body.classList.contains("page-index")) {
-
+function filterCategory(category) {
+  const filter = todosProductos.filter((product) => product.category === category);
+  localStorage.setItem("filtered", JSON.stringify(filter));
+  window.location.href = "category.html";
 }
+
+
+const divMen  = document.getElementById("man")
+const divWomen  = document.getElementById("women")
+const divJewelry  = document.getElementById("jewelry")
+const divTechnology  = document.getElementById("technology")
+
+divMen.addEventListener("click", () => {
+  filterCategory("men's clothing");
+});
+divWomen.addEventListener("click", () => {
+  filterCategory("women's clothing");
+});
+
+divJewelry.addEventListener("click", () => {
+  filterCategory("jewelery");
+});
+
+divTechnology.addEventListener("click", () => {
+  filterCategory("electronics");
+});
+
+
+function mostrarFiltradosEnCategory() {
+  const productosFiltrados = JSON.parse(localStorage.getItem("filtered")) || [];
+      
+        if (productosFiltrados.length > 0 && productosFiltrados[0].category === "electronics") {
+          document.body.classList.add("technology-page");
+        }
+
+  const contenedor = document.getElementById("filtered-container");
+  if (!contenedor) return;
+  contenedor.innerHTML = "";
+
+  productosFiltrados.forEach(producto => {
+    const box = document.createElement('div');
+    box.classList.add("box");
+
+    box.innerHTML = `
+       <span class="discount">Venta</span>
+      <div class="image">
+        <img src="${producto.image}" alt="${producto.title}">
+        <div class="icons">
+          <a href="#" class="cart-btn" data-id="${producto.id}">
+            <i class="fas fa-shopping-cart"></i> Add
+          </a>
+        </div>
+      </div>
+      <div class="content">
+        <h3>${producto.title}</h3>
+        <div class="price">$${producto.price}</div>
+      </div>
+    `;
+
+    contenedor.appendChild(box);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  mostrarFiltradosEnCategory(); 
+});

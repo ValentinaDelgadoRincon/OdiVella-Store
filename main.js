@@ -5,6 +5,8 @@ async function cargarProductos() {
   try {
     const respuesta = await fetch('https://fakestoreapi.com/products');
     const productos = await respuesta.json();
+    console.log(productos);
+    
 
     productosGlobales = productos;
     mostrarProductos(productosGlobales);
@@ -48,19 +50,21 @@ function mostrarProductos(productos) {
 function agregarAlCarrito(idProducto) {
   const productoExistente = carritoGlobal.find(p => p.id === idProducto);
 
-  if (!productoExistente) {
+  if (productoExistente) {
+    productoExistente.cantidad += 1;
+  } else {
     const producto = productosGlobales.find(p => p.id === idProducto);
     if (producto) {
-      carritoGlobal.push(producto);
-      localStorage.setItem("carrito", JSON.stringify(carritoGlobal));
-      document.getElementById('numero').innerText = carritoGlobal.length;
-      document.getElementById('numero').classList.add("diseñoNumero");
-      actualizarVistaCarrito();
+      carritoGlobal.push({ ...producto, cantidad: 1 });
     }
-  } else {
-    alert("Este producto ya está en el carrito.");
   }
+
+  localStorage.setItem("carrito", JSON.stringify(carritoGlobal));
+  actualizarVistaCarrito();
+  document.getElementById('numero').innerText = contarProductosTotales();
+  document.getElementById('numero').classList.add("diseñoNumero");
 }
+
 
 function actualizarVistaCarrito() {
   const contenedorCompra = document.getElementById('productosCompra');
@@ -82,10 +86,10 @@ function actualizarVistaCarrito() {
     });
 
     const pTitulo = document.createElement('p');
-    pTitulo.textContent = producto.title;
+    pTitulo.textContent = `${producto.title} (x${producto.cantidad})`;
 
     const pPrecio = document.createElement('p');
-    pPrecio.textContent = `$${producto.price}`;
+    pPrecio.textContent = `$${(producto.price * producto.cantidad).toFixed(2)}`;
 
     divImg.appendChild(btnEliminar);
     divImg.appendChild(pTitulo);
@@ -93,7 +97,7 @@ function actualizarVistaCarrito() {
     divProducto.appendChild(pPrecio);
     contenedorCompra.appendChild(divProducto);
 
-    totalCarrito += producto.price;
+    totalCarrito += producto.price * producto.cantidad;
   });
 
   total.innerHTML = `
@@ -101,6 +105,11 @@ function actualizarVistaCarrito() {
     <p><span>$${totalCarrito.toFixed(2)}</span></p>
   `;
 }
+
+function contarProductosTotales() {
+  return carritoGlobal.reduce((acc, prod) => acc + prod.cantidad, 0);
+}
+
 
 function eliminarDelCarrito(idProducto) {
   carritoGlobal = carritoGlobal.filter(p => p.id !== idProducto);
@@ -172,3 +181,4 @@ function asignarEventosAdd() {
     });
   });
 }
+

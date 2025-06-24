@@ -4,29 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Category Odivella</title>
+    <script type="module" defer src="./filter.js"></script>
+    <script type="module" defer src="./main.js"></script>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body class="page-category">
-    <section class="category" id="category">
-        <section class="category-products" id="category-products">
+    <section class="category-section" id="category-section">
 
-            <div class="man" id="man">
-                <h2>Men's</h2>
-            </div>
 
-            <div class="women" id="women">
-                <h2>Women's</h2>
-            </div>
+        <a href="./index.html" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+          
 
-            <div class="jewelry" id="jewelry">
-                <h2>Jewelry's</h2>
-            </div>
+            
 
-            <div class="technology" id="technology">
-                <h2>Technology's</h2>
-            </div>
-        </section>
+            <section class="category-products" id="category-products">
+
+                <div class="man" id="man">
+                    <h2>Men's</h2>
+                </div>
+
+                <div class="women" id="women">
+                    <h2>Women's</h2>
+                </div>
+
+                <div class="jewelry" id="jewelry">
+                    <h2>Jewelry's</h2>
+                </div>
+
+                <div class="technology" id="technology">
+                    <h2>Technology's</h2>
+                </div>
+            </section>
+            <div class="products-section">
+
+            <div class="box-container" id="filtered-container"></div>
+
+        </div>
     </section>
-
+    
 </body>
 </html>
