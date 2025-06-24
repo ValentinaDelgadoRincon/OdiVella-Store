@@ -26,11 +26,9 @@ function mostrarProductos(productos) {
       <div class="image">
         <img src="${producto.image}" alt="${producto.title}">
         <div class="icons">
-        
-<a href="#" class="cart-btn" data-id="${producto.id}">
-  <i class="fas fa-shopping-cart"></i> Add
-</a>
-
+          <a href="#" class="cart-btn" data-id="${producto.id}">
+            <i class="fas fa-shopping-cart"></i> Add
+          </a>
         </div>
       </div>
       <div class="content">
@@ -42,17 +40,10 @@ function mostrarProductos(productos) {
     contenedor.appendChild(box);
   });
 
-  const botonesCarrito = document.querySelectorAll('.cart-btn');
-  botonesCarrito.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const idProducto = parseInt(btn.dataset.id);
-      if (!isNaN(idProducto)) {
-        agregarAlCarrito(idProducto);
-      }
-    });
-  });
+ 
+  asignarEventosAdd();
 }
+
 
 function agregarAlCarrito(idProducto) {
   const productoExistente = carritoGlobal.find(p => p.id === idProducto);
@@ -106,7 +97,7 @@ function actualizarVistaCarrito() {
   });
 
   total.innerHTML = `
-    <p>Valor Total</p>
+    <p>Total value</p>
     <p><span>$${totalCarrito.toFixed(2)}</span></p>
   `;
 }
@@ -137,7 +128,47 @@ document.getElementById('x').addEventListener('click', () => {
   document.getElementById('informacionCompra').classList.remove('informacionCompra');
 });
 
+
 window.addEventListener('load', () => {
   cargarProductos();
 });
 
+
+
+function finalizarCompra() {
+  const mensaje = document.getElementById("mensaje");
+
+  mensaje.classList.add("mostrar");
+
+  setTimeout(() => {
+    mensaje.classList.remove("mostrar");
+  }, 3000);
+
+  
+  carritoGlobal = [];
+  localStorage.removeItem("carrito");
+  actualizarVistaCarrito();
+  document.getElementById('numero').innerText = 0;
+  document.getElementById('numero').classList.remove("diseñoNumero");
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("btnFinalizar");
+  if (btn) {
+    btn.addEventListener("click", finalizarCompra);
+  }
+});
+
+function asignarEventosAdd() {
+  const botonesCarrito = document.querySelectorAll('.cart-btn');
+  botonesCarrito.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const idProducto = parseInt(btn.dataset.id);
+      if (!isNaN(idProducto)) {
+        agregarAlCarrito(idProducto);
+      }
+    });
+  });
+}

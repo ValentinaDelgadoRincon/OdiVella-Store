@@ -674,17 +674,8 @@ section{
   display: none;
 }
 
-}
-.scroll{
-    background-color: aliceblue;
-    box-shadow: .1rem .2rem .3rem #333;
-}
-.scroll img{
-    filter: invert(15%);
-}           
-.scroll h1{
-    color: #141C29;
-}
+
+
 .carrito{
     filter: invert(100%);
     width: 45px;
@@ -693,62 +684,7 @@ section{
     top: 14px;
     cursor: pointer;
 }
-.contenedor{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
-    margin-bottom: 20px;
-}
-.contenedor>div{
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-    background-color: #2D4263;
-    border-radius: 20px;
-}
-.contenedor>div:hover{
-    background-color: #11294d;
-}
 
-.informacion{
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap:15px;
-}
-.informacion>p:first-child{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 25px;
-    font-weight: 300;
-}
-.informacion .precio {
-    font-size: 20px;
-    font-weight: 500;
-}
-.informacion .precio span{
-    font-size: 17px;
-    font-weight: 300;
-}
-.informacion button{
-    background-color: #263143;
-    width: 100px;
-    height: 35px;
-    border-radius: 10px;
-    border: none;
-
-    font-size: 17px;
-    font-weight: 300;
-    cursor: pointer;
-}
-.informacion button:hover{
-    background-color: #2D4263;
-}
-
-.infromacio button:active{
-    background-color: white;
-    color: black;
-}
 
 .diseñoNumero {
     padding: 10px;
@@ -759,7 +695,6 @@ section{
     font-size: 10px;
     position: relative;
     top: -12px;
-
     left: 30px;
     z-index: 1;
     display: flex;
@@ -778,9 +713,8 @@ section{
     background-color: rgba(51, 51, 51, 0.6);
     flex-direction:column;
     gap:35px;
+    z-index: 9999;
 }
-
-
 
 .informacionCompra{
     width: 500px;
@@ -798,8 +732,10 @@ section{
     padding-left: 400px;
     cursor: pointer;
     font-size: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
+
+
 
 .productosCompra{
     font-size: 17px;
@@ -887,11 +823,7 @@ section{
     border: 0px;
 }
 
-.soldOut{
-    background-color: red;
-    padding: 7px 10px;
-    border-radius: 10px;
-}
+
 .botonTrash{
     background-color: rgba(0, 0, 0, 0);
     border:none;
@@ -900,4 +832,23 @@ section{
     align-items: center;
 }
 
+.mensaje {
+  position: fixed;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #8259e2;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 9999;
+  pointer-events: none;
+  font-size: 20px;
+}
+
+.mostrar {
+  opacity: 1;
+}
 

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
-<body>
+<body class="page-index">
   <header>
     <input type="checkbox" name="" id="toggler">
     <label for="toggler" class="fas fa-bars"></label>
@@ -44,7 +44,9 @@
 
     <div class="productosCompra" id="productosCompra"></div>
     <div class="total" id="total"></div>
-    <button onclick="finalizarCompra()">Finalizar Compra</button>
+    <button id="btnFinalizar">Checkout</button>
+   
+
   
   </div>
 
@@ -64,7 +66,7 @@
       <div class="filter-options" id="filter-options">
         <a href="./category.html" class="category-btn" type="button">Category</a>
         <button class="price-btn" id="price-btn">Price</button>
-        <input type="number" id="price-input" placeholder="Ingrese el precio" />
+        <input type="number" id="price-input" placeholder="Enter the price" />
       </div>
 
       <div id="poda">
@@ -109,6 +111,7 @@
     <div class="box-container" id="product-container">
     </div>
   </section>
+  <div id="mensaje" class="mensaje">¡Thank you for your purchase!</div>
 
 </body>
 

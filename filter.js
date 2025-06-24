@@ -100,3 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+
+if (document.body.classList.contains("page-index")) {
+
+}
