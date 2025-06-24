@@ -3,12 +3,18 @@ let todosProductos = [];
 async function cargarProductos() {
   try {
     const respuesta = await fetch('https://fakestoreapi.com/products');
-    todosProductos = await respuesta.json(); 
-    mostrarProductos(todosProductos);  
+    const productos = await respuesta.json();
+    console.log(productos);
+    
+
+    
+    productosGlobales = productos;
+    mostrarProductos1(productosGlobales);
   } catch (error) {
     console.error('Error al cargar productos:', error);
   }
 }
+
 
 function mostrarProductos(productos) {
   const contenedor = document.getElementById('product-container');
@@ -23,7 +29,7 @@ function mostrarProductos(productos) {
       <div class="image">
         <img src="${producto.image}" alt="${producto.title}">
         <div class="icons">
-          <a class="fas fa-shopping-cart cart-btn">Add</a>
+          <a class="fas fa-shopping-cart cart-btn" data-id="${producto.id}">Add</a>
         </div>
       </div>
       <div class="content">
@@ -34,13 +40,13 @@ function mostrarProductos(productos) {
 
     contenedor.appendChild(box);
   });
+
+  // 👇 MUY IMPORTANTE:
+  asignarEventosAdd();
 }
 
-
 function filterProducts(category) {
-  const select = todosProductos.filter(product => 
-    product.category === category
-  );
+  const select = todosProductos.filter(product => product.category === category);
   mostrarProductos(select);
 }
 
@@ -60,12 +66,10 @@ function filtrarProductos(texto) {
 document.addEventListener('DOMContentLoaded', () => {
   cargarProductos();
 
-  
   const input = document.querySelector('.input');
   input.addEventListener('input', evento => {
     filtrarProductos(evento.target.value);
   });
-
 
   const priceBtn = document.getElementById('price-btn');
   const priceInput = document.getElementById('price-input');
@@ -77,18 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
- 
   priceInput.addEventListener('input', () => {
-    const precio = parseFloat(priceInput.value); 
+    const precio = parseFloat(priceInput.value);
     if (!isNaN(precio)) {
-      filtrarPorPrecio(precio);  
+      filtrarPorPrecio(precio);
     } else {
-    
       mostrarProductos(todosProductos);
     }
   });
 
- 
   const imagen = document.getElementById('filter-icon');
   const text = document.getElementById('filter-options');
   imagen.addEventListener('click', () => {
@@ -98,8 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
       text.style.display = 'none';
     }
   });
+
+  mostrarFiltradosEnCategory();
 });
 
+// ==========================
+// FILTRO POR CATEGORÍA
+// ==========================
 
 function filterCategory(category) {
   const filter = todosProductos.filter((product) => product.category === category);
@@ -107,34 +113,30 @@ function filterCategory(category) {
   window.location.href = "category.html";
 }
 
+const divMen = document.getElementById("man");
+const divWomen = document.getElementById("women");
+const divJewelry = document.getElementById("jewelry");
+const divTechnology = document.getElementById("technology");
 
-const divMen  = document.getElementById("man")
-const divWomen  = document.getElementById("women")
-const divJewelry  = document.getElementById("jewelry")
-const divTechnology  = document.getElementById("technology")
-
-divMen.addEventListener("click", () => {
+divMen?.addEventListener("click", () => {
   filterCategory("men's clothing");
 });
-divWomen.addEventListener("click", () => {
+divWomen?.addEventListener("click", () => {
   filterCategory("women's clothing");
 });
-
-divJewelry.addEventListener("click", () => {
+divJewelry?.addEventListener("click", () => {
   filterCategory("jewelery");
 });
-
-divTechnology.addEventListener("click", () => {
+divTechnology?.addEventListener("click", () => {
   filterCategory("electronics");
 });
 
-
 function mostrarFiltradosEnCategory() {
   const productosFiltrados = JSON.parse(localStorage.getItem("filtered")) || [];
-      
-        if (productosFiltrados.length > 0 && productosFiltrados[0].category === "electronics") {
-          document.body.classList.add("technology-page");
-        }
+
+  if (productosFiltrados.length > 0 && productosFiltrados[0].category === "electronics") {
+    document.body.classList.add("technology-page");
+  }
 
   const contenedor = document.getElementById("filtered-container");
   if (!contenedor) return;
@@ -145,7 +147,7 @@ function mostrarFiltradosEnCategory() {
     box.classList.add("box");
 
     box.innerHTML = `
-       <span class="discount">Venta</span>
+      <span class="discount">Venta</span>
       <div class="image">
         <img src="${producto.image}" alt="${producto.title}">
         <div class="icons">
@@ -162,8 +164,45 @@ function mostrarFiltradosEnCategory() {
 
     contenedor.appendChild(box);
   });
+
+  // 👇 Esto asegura que los botones funcionen
+  asignarEventosAdd();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  mostrarFiltradosEnCategory(); 
-});
+// ==========================
+// FUNCIONES DEL CARRITO
+// ==========================
+
+function asignarEventosAdd() {
+  const botonesCarrito = document.querySelectorAll('.cart-btn');
+  botonesCarrito.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const idProducto = parseInt(btn.dataset.id);
+      if (!isNaN(idProducto)) {
+        agregarAlCarrito(idProducto);
+      }
+    });
+  });
+}
+
+function agregarAlCarrito(idProducto) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  const producto = todosProductos.find(p => p.id === idProducto);
+  if (!producto) return;
+
+  const existente = carrito.find(p => p.id === idProducto);
+  if (existente) {
+    existente.cantidad += 1;
+  } else {
+    carrito.push({ ...producto, cantidad: 1 });
+  }
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  document.getElementById('numero').innerText = contarProductosTotales(carrito);
+  document.getElementById('numero').classList.add("diseñoNumero");
+}
+
+function contarProductosTotales(carrito) {
+  return carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+}

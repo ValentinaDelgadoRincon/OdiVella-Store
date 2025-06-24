@@ -297,16 +297,6 @@ section{
 
 
 
-
-
-
-
-
-
-
-
-
-
 .products-section .box-container {
   display: flex;
   flex-wrap: wrap;
@@ -881,6 +871,7 @@ body.technology-page #filtered-container {
     font-size: 17px;
     position: relative;
     z-index: 1;
+    color: #ffffff;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -926,6 +917,7 @@ body.technology-page #filtered-container {
 
 .total{
     z-index: 1;
+    color: #fff;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -1002,3 +994,25 @@ body.technology-page #filtered-container {
   color: rgb(180, 18, 221); 
   text-decoration: none;
 }
+
+
+.carrito-vacio {
+  padding: 10px;
+  font-size: 3rem;
+  color: #000000;
+  text-align: center;
+}
+
+.botonRestar {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 50px;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.botonRestar:hover {
+  color: rgb(0, 174, 255);
+}
+
