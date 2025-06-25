@@ -175,9 +175,7 @@ function filterCategory(category) {
 function mostrarFiltradosEnCategory() {
   const productosFiltrados = JSON.parse(localStorage.getItem("filtered")) || [];
 
-  if (productosFiltrados.length > 0 && productosFiltrados[0].category === "electronics") {
-    document.body.classList.add("technology-page");
-  }
+
 
   const contenedor = document.getElementById("filtered-container");
   if (!contenedor) return;
