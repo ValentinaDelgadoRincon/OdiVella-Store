@@ -1,6 +1,6 @@
 let carritoGlobal = JSON.parse(localStorage.getItem("carrito")) || [];
 let productosGlobales = [];
-let todosProductos = []; 
+let todosProductos = [];
 
 const API = 'https://fakestoreapi.com/products';
 
@@ -8,7 +8,11 @@ async function cargarProductos() {
   try {
     const respuesta = await fetch(API);
     productosGlobales = await respuesta.json();
-    todosProductos = productosGlobales; 
+    todosProductos = productosGlobales;
+
+   
+    localStorage.setItem("todosProductos", JSON.stringify(todosProductos));
+
     mostrarProductos(productosGlobales);
   } catch (error) {
     console.error('Error al cargar productos:', error);
@@ -62,6 +66,8 @@ function agregarAlCarrito(idProducto) {
 function actualizarVistaCarrito() {
   const contenedorCompra = document.getElementById('productosCompra');
   const total = document.getElementById('total');
+  if (!contenedorCompra || !total) return;
+
   contenedorCompra.innerHTML = "";
   total.innerHTML = "";
 
@@ -134,6 +140,8 @@ function contarProductosTotales() {
 
 function actualizarNumeroCarrito() {
   const numero = document.getElementById('numero');
+  if (!numero) return;
+
   const total = contarProductosTotales();
   numero.innerText = total;
 
@@ -157,8 +165,8 @@ function asignarEventosAdd() {
 
 function finalizarCompra() {
   const mensaje = document.getElementById("mensaje");
-  mensaje.classList.add("mostrar");
-  setTimeout(() => mensaje.classList.remove("mostrar"), 3000);
+  mensaje?.classList.add("mostrar");
+  setTimeout(() => mensaje?.classList.remove("mostrar"), 3000);
 
   carritoGlobal = [];
   localStorage.removeItem("carrito");
@@ -178,7 +186,8 @@ function filtrarPorPrecio(precio) {
 }
 
 function filterCategory(category) {
-  const filtro = todosProductos.filter(product => product.category === category);
+  const productosLocales = JSON.parse(localStorage.getItem("todosProductos")) || [];
+  const filtro = productosLocales.filter(product => product.category === category);
   localStorage.setItem("filtered", JSON.stringify(filtro));
   window.location.href = "category.html";
 }
@@ -216,22 +225,41 @@ function mostrarFiltradosEnCategory() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  cargarProductos();
   actualizarNumeroCarrito();
+
+  if (window.location.pathname.includes("category.html")) {
+    const data = JSON.parse(localStorage.getItem("todosProductos")) || [];
+    productosGlobales = data;
+    todosProductos = data;
+
+    mostrarFiltradosEnCategory();
+
+    document.getElementById("man")?.addEventListener("click", () => filterCategory("men's clothing"));
+    document.getElementById("women")?.addEventListener("click", () => filterCategory("women's clothing"));
+    document.getElementById("jewelry")?.addEventListener("click", () => filterCategory("jewelery"));
+    document.getElementById("technology")?.addEventListener("click", () => filterCategory("electronics"));
+  } else {
+    cargarProductos();
+
+    document.getElementById("man")?.addEventListener("click", () => filterCategory("men's clothing"));
+    document.getElementById("women")?.addEventListener("click", () => filterCategory("women's clothing"));
+    document.getElementById("jewelry")?.addEventListener("click", () => filterCategory("jewelery"));
+    document.getElementById("technology")?.addEventListener("click", () => filterCategory("electronics"));
+  }
 
   document.getElementById('carrito')?.addEventListener('click', () => {
     document.body.style.overflow = 'hidden';
-    document.getElementById('contenedorCompra').classList.remove('none');
-    document.getElementById('contenedorCompra').classList.add('contenedorCompra');
-    document.getElementById('informacionCompra').classList.add('informacionCompra');
+    document.getElementById('contenedorCompra')?.classList.remove('none');
+    document.getElementById('contenedorCompra')?.classList.add('contenedorCompra');
+    document.getElementById('informacionCompra')?.classList.add('informacionCompra');
     actualizarVistaCarrito();
   });
 
   document.getElementById('x')?.addEventListener('click', () => {
     document.body.style.overflow = 'auto';
-    document.getElementById('contenedorCompra').classList.add('none');
-    document.getElementById('contenedorCompra').classList.remove('contenedorCompra');
-    document.getElementById('informacionCompra').classList.remove('informacionCompra');
+    document.getElementById('contenedorCompra')?.classList.add('none');
+    document.getElementById('contenedorCompra')?.classList.remove('contenedorCompra');
+    document.getElementById('informacionCompra')?.classList.remove('informacionCompra');
   });
 
   document.getElementById("btnFinalizar")?.addEventListener("click", finalizarCompra);
@@ -255,13 +283,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = document.getElementById('filter-options');
     text.style.display = (text.style.display === 'none' || !text.style.display) ? 'flex' : 'none';
   });
-
-  document.getElementById("man")?.addEventListener("click", () => filterCategory("men's clothing"));
-  document.getElementById("women")?.addEventListener("click", () => filterCategory("women's clothing"));
-  document.getElementById("jewelry")?.addEventListener("click", () => filterCategory("jewelery"));
-  document.getElementById("technology")?.addEventListener("click", () => filterCategory("electronics"));
-
-  if (window.location.pathname.includes("category.html")) {
-    mostrarFiltradosEnCategory();
-  }
 });
