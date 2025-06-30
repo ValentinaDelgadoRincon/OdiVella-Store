@@ -2,9 +2,11 @@ let carritoGlobal = JSON.parse(localStorage.getItem("carrito")) || [];
 let productosGlobales = [];
 let todosProductos = []; 
 
+const API = 'https://fakestoreapi.com/products';
+
 async function cargarProductos() {
   try {
-    const respuesta = await fetch('https://fakestoreapi.com/products');
+    const respuesta = await fetch(API);
     productosGlobales = await respuesta.json();
     todosProductos = productosGlobales; 
     mostrarProductos(productosGlobales);
@@ -53,9 +55,8 @@ function agregarAlCarrito(idProducto) {
     }
   }
   localStorage.setItem("carrito", JSON.stringify(carritoGlobal));
+  actualizarNumeroCarrito();
   actualizarVistaCarrito();
-  document.getElementById('numero').innerText = contarProductosTotales();
-  document.getElementById('numero').classList.add("diseñoNumero");
 }
 
 function actualizarVistaCarrito() {
@@ -111,8 +112,7 @@ function eliminarDelCarrito(idProducto) {
   carritoGlobal = carritoGlobal.filter(p => p.id !== idProducto);
   localStorage.setItem("carrito", JSON.stringify(carritoGlobal));
   actualizarVistaCarrito();
-  document.getElementById('numero').innerText = contarProductosTotales();
-  if (carritoGlobal.length === 0) document.getElementById('numero').classList.remove("diseñoNumero");
+  actualizarNumeroCarrito();
 }
 
 function restarUnidadDelCarrito(idProducto) {
@@ -123,7 +123,7 @@ function restarUnidadDelCarrito(idProducto) {
     else {
       localStorage.setItem("carrito", JSON.stringify(carritoGlobal));
       actualizarVistaCarrito();
-      document.getElementById('numero').innerText = contarProductosTotales();
+      actualizarNumeroCarrito();
     }
   }
 }
@@ -132,11 +132,23 @@ function contarProductosTotales() {
   return carritoGlobal.reduce((acc, prod) => acc + prod.cantidad, 0);
 }
 
+function actualizarNumeroCarrito() {
+  const numero = document.getElementById('numero');
+  const total = contarProductosTotales();
+  numero.innerText = total;
+
+  if (total > 0) {
+    numero.classList.add("diseñoNumero");
+  } else {
+    numero.classList.remove("diseñoNumero");
+  }
+}
+
 function asignarEventosAdd() {
   const botonesCarrito = document.querySelectorAll('.cart-btn');
   botonesCarrito.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
+    btn.addEventListener('click', (evento) => {
+      evento.preventDefault();
       const idProducto = parseInt(btn.dataset.id);
       if (!isNaN(idProducto)) agregarAlCarrito(idProducto);
     });
@@ -151,8 +163,7 @@ function finalizarCompra() {
   carritoGlobal = [];
   localStorage.removeItem("carrito");
   actualizarVistaCarrito();
-  document.getElementById('numero').innerText = 0;
-  document.getElementById('numero').classList.remove("diseñoNumero");
+  actualizarNumeroCarrito();
 }
 
 function filtrarProductos(texto) {
@@ -174,9 +185,6 @@ function filterCategory(category) {
 
 function mostrarFiltradosEnCategory() {
   const productosFiltrados = JSON.parse(localStorage.getItem("filtered")) || [];
-
-
-
   const contenedor = document.getElementById("filtered-container");
   if (!contenedor) return;
   contenedor.innerHTML = "";
@@ -207,9 +215,9 @@ function mostrarFiltradosEnCategory() {
   asignarEventosAdd();
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
   cargarProductos();
+  actualizarNumeroCarrito();
 
   document.getElementById('carrito')?.addEventListener('click', () => {
     document.body.style.overflow = 'hidden';
@@ -248,13 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
     text.style.display = (text.style.display === 'none' || !text.style.display) ? 'flex' : 'none';
   });
 
-
   document.getElementById("man")?.addEventListener("click", () => filterCategory("men's clothing"));
   document.getElementById("women")?.addEventListener("click", () => filterCategory("women's clothing"));
   document.getElementById("jewelry")?.addEventListener("click", () => filterCategory("jewelery"));
   document.getElementById("technology")?.addEventListener("click", () => filterCategory("electronics"));
 
-  
   if (window.location.pathname.includes("category.html")) {
     mostrarFiltradosEnCategory();
   }
