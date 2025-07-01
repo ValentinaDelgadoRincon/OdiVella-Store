@@ -10,7 +10,7 @@ async function cargarProductos() {
     productosGlobales = await respuesta.json();
     todosProductos = productosGlobales;
 
-   
+
     localStorage.setItem("todosProductos", JSON.stringify(todosProductos));
 
     mostrarProductos(productosGlobales);
@@ -27,26 +27,58 @@ function mostrarProductos(productos) {
   productos.forEach(producto => {
     const box = document.createElement('div');
     box.classList.add('box');
-    box.innerHTML = `
-      <span class="discount">Sale</span>
-      <div class="image">
-        <img src="${producto.image}" alt="${producto.title}">
-        <div class="icons">
-          <a href="#" class="cart-btn" data-id="${producto.id}">
-            <i class="fas fa-shopping-cart"></i> Add
-          </a>
-        </div>
-      </div>
-      <div class="content">
-        <h3>${producto.title}</h3>
-        <div class="price">$${producto.price}</div>
-      </div>
-    `;
+
+    const discount = document.createElement('span');
+    discount.classList.add('discount');
+    discount.textContent = 'Sale';
+
+    const imageDiv = document.createElement('div');
+    imageDiv.classList.add('image');
+
+    const img = document.createElement('img');
+    img.src = producto.image;
+    img.alt = producto.title;
+
+    const iconsDiv = document.createElement('div');
+    iconsDiv.classList.add('icons');
+
+    const cartBtn = document.createElement('a');
+    cartBtn.href = '#';
+    cartBtn.classList.add('cart-btn');
+    cartBtn.setAttribute('data-id', producto.id);
+
+    const cartIcon = document.createElement('i');
+    cartIcon.classList.add('fas', 'fa-shopping-cart');
+
+    cartBtn.appendChild(cartIcon);
+    cartBtn.appendChild(document.createTextNode(' Add'));
+    iconsDiv.appendChild(cartBtn);
+    imageDiv.appendChild(img);
+    imageDiv.appendChild(iconsDiv);
+
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('content');
+
+    const title = document.createElement('h3');
+    title.textContent = producto.title;
+
+    const price = document.createElement('div');
+    price.classList.add('price');
+    price.textContent = `$${producto.price}`;
+
+    contentDiv.appendChild(title);
+    contentDiv.appendChild(price);
+
+    box.appendChild(discount);
+    box.appendChild(imageDiv);
+    box.appendChild(contentDiv);
+
     contenedor.appendChild(box);
   });
 
   asignarEventosAdd();
 }
+
 
 function agregarAlCarrito(idProducto) {
   const productoExistente = carritoGlobal.find(p => p.id === idProducto);
@@ -87,7 +119,11 @@ function actualizarVistaCarrito() {
 
     const btnEliminar = document.createElement('button');
     btnEliminar.classList.add('botonTrash');
-    btnEliminar.innerHTML = `<img src="./multimedia/trash.png" alt="Eliminar" />`;
+    const imgTrash = document.createElement('img');
+    imgTrash.src = "./multimedia/trash.png";
+    imgTrash.alt = "Eliminar";
+    btnEliminar.appendChild(imgTrash);
+
     btnEliminar.addEventListener('click', () => eliminarDelCarrito(producto.id));
 
     const btnRestar = document.createElement('button');
@@ -111,7 +147,17 @@ function actualizarVistaCarrito() {
     totalCarrito += producto.price * producto.cantidad;
   });
 
-  total.innerHTML = `<p>Total value</p><p><span>$${totalCarrito.toFixed(2)}</span></p>`;
+  const p1 = document.createElement('p');
+  p1.textContent = "Total value";
+
+  const p2 = document.createElement('p');
+  const span = document.createElement('span');
+  span.textContent = `$${totalCarrito.toFixed(2)}`;
+  p2.appendChild(span);
+
+  total.appendChild(p1);
+  total.appendChild(p2);
+
 }
 
 function eliminarDelCarrito(idProducto) {
@@ -202,27 +248,57 @@ function mostrarFiltradosEnCategory() {
     const box = document.createElement('div');
     box.classList.add("box");
 
-    box.innerHTML = `
-      <span class="discount">Venta</span>
-      <div class="image">
-        <img src="${producto.image}" alt="${producto.title}">
-        <div class="icons">
-          <a href="#" class="cart-btn" data-id="${producto.id}">
-            <i class="fas fa-shopping-cart"></i> Add
-          </a>
-        </div>
-      </div>
-      <div class="content">
-        <h3>${producto.title}</h3>
-        <div class="price">$${producto.price}</div>
-      </div>
-    `;
+    const discount = document.createElement('span');
+    discount.classList.add('discount');
+    discount.textContent = "Venta";
+
+    const imageDiv = document.createElement('div');
+    imageDiv.classList.add('image');
+
+    const img = document.createElement('img');
+    img.src = producto.image;
+    img.alt = producto.title;
+
+    const iconsDiv = document.createElement('div');
+    iconsDiv.classList.add('icons');
+
+    const cartBtn = document.createElement('a');
+    cartBtn.href = '#';
+    cartBtn.classList.add('cart-btn');
+    cartBtn.dataset.id = producto.id;
+
+    const cartIcon = document.createElement('i');
+    cartIcon.classList.add('fas', 'fa-shopping-cart');
+
+    cartBtn.appendChild(cartIcon);
+    cartBtn.appendChild(document.createTextNode(' Add'));
+    iconsDiv.appendChild(cartBtn);
+    imageDiv.appendChild(img);
+    imageDiv.appendChild(iconsDiv);
+
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('content');
+
+    const title = document.createElement('h3');
+    title.textContent = producto.title;
+
+    const price = document.createElement('div');
+    price.classList.add('price');
+    price.textContent = `$${producto.price}`;
+
+    contentDiv.appendChild(title);
+    contentDiv.appendChild(price);
+
+    box.appendChild(discount);
+    box.appendChild(imageDiv);
+    box.appendChild(contentDiv);
 
     contenedor.appendChild(box);
   });
 
   asignarEventosAdd();
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   actualizarNumeroCarrito();
