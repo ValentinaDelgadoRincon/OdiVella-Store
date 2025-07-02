@@ -223,6 +223,7 @@ section{
     width: 100vw;
 }
 
+
 .products .box-container .box .image .icons a:hover {
     background: #aacafacb;
 }
@@ -291,6 +292,22 @@ body.technology-page #filtered-container {
   z-index: 1;
   border-radius: .5rem;
 }
+
+
+
+.fav {
+  position: absolute;
+  top: 1rem;
+  left: 30rem;
+  padding: .7rem 1rem;
+  font-size: 1.5rem;
+  color: red;
+  background: rgba(231, 102, 102, 0.267);
+  z-index: 1;
+  border-radius: .5rem;
+}
+
+
 
 .products-section  .box-container .box .image {
   position: relative;
@@ -1371,3 +1388,4 @@ header .div-carrito {
       min-height: 40px;
   }
 }
+

@@ -28,9 +28,15 @@ function mostrarProductos(productos) {
     const box = document.createElement('div');
     box.classList.add('box');
 
+
     const discount = document.createElement('span');
     discount.classList.add('discount');
     discount.textContent = 'Sale';
+  
+
+    const fav = document.createElement('span');
+    fav.classList.add('fav');
+    fav.textContent = 'Fav';
 
     const imageDiv = document.createElement('div');
     imageDiv.classList.add('image');
@@ -50,8 +56,10 @@ function mostrarProductos(productos) {
     const cartIcon = document.createElement('i');
     cartIcon.classList.add('fas', 'fa-shopping-cart');
 
+  
+
     cartBtn.appendChild(cartIcon);
-    cartBtn.appendChild(document.createTextNode(' Add'));
+    cartBtn.appendChild(document.createTextNode('Add'));
     iconsDiv.appendChild(cartBtn);
     imageDiv.appendChild(img);
     imageDiv.appendChild(iconsDiv);
@@ -70,6 +78,7 @@ function mostrarProductos(productos) {
     contentDiv.appendChild(price);
 
     box.appendChild(discount);
+    box.appendChild(fav);
     box.appendChild(imageDiv);
     box.appendChild(contentDiv);
 
@@ -94,6 +103,9 @@ function agregarAlCarrito(idProducto) {
   actualizarNumeroCarrito();
   actualizarVistaCarrito();
 }
+
+
+
 
 function actualizarVistaCarrito() {
   const contenedorCompra = document.getElementById('productosCompra');
@@ -209,6 +221,21 @@ function asignarEventosAdd() {
   });
 }
 
+
+
+function asignarEventosFav() {
+  const botonFav = document.querySelectorAll('.cart-btn');
+  botonFav.forEach(btn => {
+    btn.addEventListener('click', (evento) => {
+      evento.preventDefault();
+      const idProducto = parseInt(btn.dataset.id);
+      if (!isNaN(idProducto)) agregar(idProducto);
+    });
+  });
+}
+
+
+
 function finalizarCompra() {
   const mensaje = document.getElementById("mensaje");
   mensaje?.classList.add("mostrar");
@@ -292,6 +319,7 @@ function mostrarFiltradosEnCategory() {
     box.appendChild(discount);
     box.appendChild(imageDiv);
     box.appendChild(contentDiv);
+    box.appendChild(fav);
 
     contenedor.appendChild(box);
   });
